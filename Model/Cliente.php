@@ -1,17 +1,14 @@
-<?php
-    namespace Projeto\ti23t\Model;
+<?php namespace Projeto\ti23t\Model; //Nome do Projeto
     use DateTime;
 
     //Classe: Cliente
     class Cliente{
 
         //Variáveis
-        //Encapsulameto: Definindo as variáveis como private
-        private int $codigo;
+        private int    $codigo;
         private string $nome;
         private string $telefone;
         private string $endereco;
-
         private string $dataNascimento;
 
         //Primeira etapa: Criar um construtor
@@ -22,25 +19,26 @@
             $this->telefone       = $telefone;
             $this->endereco       = $endereco;
             $this->dataNascimento = $dataNascimento;
+
         }//Fim do Construtor -> Cadastrar
 
         //Métodos GET e SET
-        //Método: GET
+        //Método GET (Consulta)
         public function __get(string $dados):mixed
         {
+            //Retornando os dados após consultar...
             return $dados;
 
-        }//Fim do Método Get -> Consultar
+        }//Fim do Método GET
 
-        //Método: SET
+        //Método SET (Atualização)
         public function __set(string $variavel, string $novoDado):void
         {
+            //Atualizando a variável com o novo dado...
             $this->variavel = $novoDado;
 
-        }//Fim do Método Set -> Atualizar
-    }
+        }//Fim do Método SET
 
-
-
+    }//Fim da Classe Cliente
 
 ?>
