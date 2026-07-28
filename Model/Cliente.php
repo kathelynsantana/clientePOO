@@ -27,7 +27,7 @@
         public function __get(string $dados):mixed
         {
             //Retornando os dados após consultar...
-            return $dados;
+            return $this->$dados;
 
         }//Fim do Método GET
 
@@ -35,7 +35,7 @@
         public function __set(string $variavel, string $novoDado):void
         {
             //Atualizando a variável com o novo dado...
-            $this->variavel = $novoDado;
+            $this->$variavel = $novoDado;
 
         }//Fim do Método SET
 

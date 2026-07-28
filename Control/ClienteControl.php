@@ -34,106 +34,58 @@
 
         //Métodos: Atualização dos dados do Cliente
             //Método: Atualizar Nome
-            public function atualizarNome(int $codigo, string $nome):string
+            public function atualizarNome(string $nome):string
             {
-                //Verificando se o código do cliente é válido...
-                if($this->cliente->codigo == $codigo)
-                {
-                    //Se o código for válido...
-                    //Atualizando...
-                    $this->cliente->nome = $nome;
-                    return "O nome foi atualizado com sucesso!";
+                //Atualizando...
+                $this->cliente->nome = $nome;
+                return "O nome: $nome foi atualizado com sucesso!";
 
-                }else{
-                    
-                    //Se o código não for válido...
-                    return "Código inválido! Não foi possível atualizar o nome!";
-
-                }//Fim da verificação do código do cliente
             }//Fim do Método Atualizar Nome
 
             //Método: Atualizar Telefone
-            public function atualizarTelefone(int $codigo, string $telefone):string
+            public function atualizarTelefone(string $telefone):string
             {
-                //Verificando se o código do cliente é válido...
-                if($this->cliente->codigo == $codigo)
-                {
-                    //Se o código for válido...
-                    //Atualizando...
-                    $this->cliente->telefone = $telefone;
-                    return "O telefone foi atualizado com sucesso!";
+                //Atualizando...
+                $this->cliente->telefone = $telefone;
+                return "O telefone: $telefone foi atualizado com sucesso!";
 
-                }else{
-
-                    //Se o código não for válido...
-                    return "Código inválido! Não foi possível atualizar o telefone!";
-
-                }//Fim da verificação do código do cliente
             }//Fim do Método Atualizar Telefone
 
             //Método: Atualizar Endereço
-            public function atualizarEndereco(int $codigo, string $endereco):string
+            public function atualizarEndereco(string $endereco):string
             {
-                //Verificando se o código do cliente é válido...
-                if($this->cliente->codigo == $codigo)
-                {
-                    //Se o código for válido...
-                    //Atualizando...
-                    $this->cliente->endereco = $endereco;
-                    return "O endereço foi atualizado com sucesso!";
+                //Atualizando...
+                $this->cliente->endereco = $endereco;
+                return "O endereço: $endereco foi atualizado com sucesso!";
 
-                }else{
-
-                    //Se o código não for válido...
-                    return "Código inválido! Não foi possível atualizar o endereço!";
-
-                }//Fim da verificação do código do cliente
             }//Fim do Método Atualizar Endereço
 
             //Método: Atualizar Data de Nascimento
-            public function atualizarDataNascimento(int $codigo, string $dataNascimento):string
+            public function atualizarDataNascimento(string $dataNascimento):string
             {
-                //Verificando se o código do cliente é válido...
-                if($this->cliente->codigo == $codigo)
-                {
-                    //Se o código for válido...
-                    //Atualizando...
-                    $this->cliente->dataNascimento = $dataNascimento;
-                    return "A data de nascimento foi atualizada com sucesso!";
+                //Atualizando...
+                $this->cliente->dataNascimento = $dataNascimento;
+                return "A data de nascimento: $dataNascimento foi atualizada com sucesso!";
 
-                }else{
-
-                    //Se o código não for válido...
-                    return "Código inválido! Não foi possível atualizar a data de nascimento!";
-
-                }//Fim da verificação do código do cliente
             }//Fim do Método Atualizar Data de Nascimento
 
         //Fim dos Métodos de Atualização dos dados do Cliente
 
         //Método: Excluir Cliente
-        public function excluirCliente(int $codigo)
+        public function excluirCliente()
         {
-            //Verificando se o código do cliente existe...
-            if($this->cliente->codigo == $codigo)
-            {
-                //Se o código do cliente existir...
-                //Apagando os dados...
-                $this->cliente->codigo         = 0;
-                $this->cliente->nome           = "";
-                $this->cliente->telefone       = "";
-                $this->cliente->endereco       = "";
-                $this->cliente->dataNascimento = "";
+            //Se o código do cliente existir...
+            //Apagando os dados...
+            $cod = $this->cliente->codigo;
+            $this->cliente->codigo         = 0;
+            $this->cliente->nome           = "";
+            $this->cliente->telefone       = "";
+            $this->cliente->endereco       = "";
+            $this->cliente->dataNascimento = "";
 
-                //Retornando a mensagem de exclusão...
-                return "O cliente foi excluído com sucesso!";
+            //Retornando a mensagem de exclusão...
+            return 1;
 
-            }else{
-
-                //Se o código do cliente não existir...
-                return "O cliente não foi encontrado! Não foi possível excluí-lo!";
-
-            }//Fim da verificação do código do cliente
         }//Fim do Método Excluir Cliente
 
     }//Fim da Classe Control

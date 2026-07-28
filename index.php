@@ -1,7 +1,5 @@
 <?php namespace Projeto\ti23t\View;//Nome do Projeto
 
-    //Variáveis de Conexão
-
 ?>
 
 <!-- ------------------------------------------------------------------------------------------------------------------------- -->
@@ -20,10 +18,10 @@
     <h1>Página Inicial</h1>
 
     <!-- Botões de Redirecionamento -->
-    <a href="view/Cadastrar.php"><button>Cadastrar</button>
-    <a href="view/Consultar.php"><button>Consultar</button>
-    <a href="view/Atualizar.php"><button>Atualizar</button>
-    <a href="view/Excluir.php"><button>Excluir</button>
+    <a href="view/CadastrarCliente.php"><button>Cadastrar</button>
+    <a href="view/ConsultarCliente.php"><button>Consultar</button>
+    <a href="view/AtualizarCliente.php"><button>Atualizar</button>
+    <a href="view/ExcluirCliente.php"><button>Excluir</button>
 
     <!-- Fim dos Botões de Redirecionamento -->
 

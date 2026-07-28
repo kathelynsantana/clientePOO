@@ -1,13 +1,19 @@
 <?php namespace Projeto\ti23t\View;//Nome do Projeto
-
+    
+    //Abrindo a seção para armazenar os dados...
+    session_start();
+    
+    //Incluindo o cabeçalho
+    include('cabecalho.php');
+    
     //Conectando ao Model e Control...
     require_once('../Model/Cliente.php');//Acessando o arquivo Cliente.php que está na pasta Model...
     require_once('../Control/ClienteControl.php');//Acessando o arquivo ClienteControl.php que está na pasta Control...
 
     //Acessando as classes da Model e Control...
     use Projeto\ti23t\Model\Cliente;//Acessando a classe "Cliente" que está na pasta Model...
-    use Projeto\ti23t\Control\ClienteControl;//Acessando a classe "ClienteControl" que está na pasta Control...
-
+    use Projeto\ti23t\Control\Control;//Acessando a classe "ClienteControl" que está na pasta Control...
+    
 ?>
 
 <!-- ------------------------------------------------------------------------------------------------------------------------- -->
@@ -39,7 +45,7 @@
 
         <!-- Campo de Telefone -->
         <label>Telefone:</label>
-        <input type="string" name="telefone" id="telefone"/><br><br>
+        <input type="text" name="telefone" id="telefone"/><br><br>
 
         <!-- Campo de Endereço -->
         <label>Endereço:</label>
@@ -47,39 +53,37 @@
 
         <!-- Campo de Data de Nascimento -->
         <label>Data de Nascimento:</label>
-        <input type="string" name="dataNascimento" id="dataNascimento"/><br><br>
+        <input type="dateTime" name="dataNascimento" id="dataNascimento"/><br><br>
 
         <!-- Fim das Informações de Cadastro -->
 
 
-        <!-- Botões -->
         <!-- Botão de Cadastro -->
         <button type="submit">Cadastrar
             <?php
-
+             
                 //Verificando se todos os campos foram preenchidos...
                 if(isset($_POST['codigo']))
                 {
                     //Se todos os campos forem preenchidos...
                     //Coletando os dados preenchidos...
-                    $codigo   = $_POST['codigo'];
-                    $nome     = $_POST['nome'];
-                    $telefone = $_POST['telefone'];
-                    $endereco = $_POST['endereco'];
+                    $codigo         = $_POST['codigo'];
+                    $nome           = $_POST['nome'];
+                    $telefone       = $_POST['telefone'];
+                    $endereco       = $_POST['endereco'];
                     $dataNascimento = $_POST['dataNascimento'];
 
-                    //Passando os dados pelo objeto Cliente...
+                    //Criado e passando os dados pelo objeto Cliente...
                     $cliente = new Cliente($codigo, $nome, $telefone, $endereco, $dataNascimento);
-                    $controle = new Control($cliente);
+
+                    //Armazenando os dados que foram inseridos nessa tela...
+                    //Pode ser utilizada para transferir dados de uma tela para outra
+                    $_SESSION["cliente"] = $cliente;//Transferindo o objeto todo
 
                 }//Fim da verificação de preenchimento dos campos...
             ?>
         </button>
         <!-- Fim do Botão de Cadastro -->
-
-        <!-- Botão de Voltar -->
-        <a href="../index.php"><button>Voltar</button></a>
-
 
     </form>
     <!-- Fim do Formulário de Cadastro -->
@@ -90,7 +94,7 @@
         if(isset($_POST['codigo']))
         {
             //Se os campos estiverem preenchidos...
-            echo $controle->consultarCliente();
+            echo "Cadastrado com sucesso!";
 
         }else{
 
@@ -100,6 +104,9 @@
         }//Fim da verificação de preenchimento dos campos...
 
     ?>
+
+        <!-- Botão de Voltar -->
+        <a href="../index.php"><button>Voltar</button></a>
 
 </body>
 </html>
