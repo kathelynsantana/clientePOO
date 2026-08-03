@@ -6,20 +6,18 @@
     //Conectando ao Model e Control...
     require_once('../Model/Cliente.php');//Acessando o arquivo Cliente.php que está na pasta Model...
     require_once('../Control/ClienteControl.php');//Acessando o arquivo ClienteControl.php que está na pasta Control...
+    require_once('../DAO/consultar.php');
+    require_once('../DAO/conexao.php');
 
     //Acessando as classes da Model e Control...
     use Projeto\ti23t\Model\Cliente;//Acessando a classe "Cliente" que está na pasta Model...
     use Projeto\ti23t\Control\Control;//Acessando a classe "ClienteControl" que está na pasta Control...
+    use Projeto\ti23t\DAO\Consultar;
+    use Projeto\ti23t\DAO\Conexao;
 
-    //Iniciando a sessão para consultar os dados...
-    session_start();
-
-    //Coletando o objeto...
-    $clienteRecuperado = $_SESSION["cliente"];
-    $controle = new Control($clienteRecuperado);
-
-    //Chamando o método de consulta para mostrar todos os dados do cliente cadastrado...
-    $controle->consultarCliente(); 
+    $conexao = new Conexao();
+    $consultar = new Consultar();
+    $resultado = "";
 
 ?>
 
@@ -38,12 +36,22 @@
     <!-- Título da Página -->
     <h1>Consultar um Cliente</h1>
 
-    <?php
+    <form method="POST">
+        <label>Código: </label>
+        <input type="number" name="codigo" id="codigo"/>
 
-        //Chamando o método de consulta para mostrar todos os dados do cliente cadastrado...
-        echo $controle->consultarCliente();
+        <button type="submit">Consultar
+            <?php
 
-    ?>
+            //Chamando o método de consulta para mostrar todos os dados do cliente cadastrado...
+            $resultado = $consultar->consultarCliente($conexao, $_POST['codigo']);
+
+            ?>
+        </button>
+    </form>
+    
+    <br><br>
+    <?php echo $resultado; ?>
 
     <!-- Botão de Voltar -->
     <a href="../index.php"><button>Voltar</button></a>

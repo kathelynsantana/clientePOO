@@ -7,12 +7,20 @@
     include('cabecalho.php');
     
     //Conectando ao Model e Control...
+    require_once('../DAO/cadastrar.php');
+    require_once('../DAO/Conexao.php');
     require_once('../Model/Cliente.php');//Acessando o arquivo Cliente.php que está na pasta Model...
     require_once('../Control/ClienteControl.php');//Acessando o arquivo ClienteControl.php que está na pasta Control...
 
     //Acessando as classes da Model e Control...
     use Projeto\ti23t\Model\Cliente;//Acessando a classe "Cliente" que está na pasta Model...
     use Projeto\ti23t\Control\Control;//Acessando a classe "ClienteControl" que está na pasta Control...
+    use Projeto\ti23t\DAO\Conexao;
+    use Projeto\ti23t\DAO\Cadastrar;
+
+    $conexao = new Conexao();
+    $inserir = new Cadastrar();
+    $mensagem = "";
     
 ?>
 
@@ -36,8 +44,6 @@
 
         <!-- Informações de Cadastro -->
         <!-- Campo de Código -->
-        <label>Código:</label>
-        <input type="number" name="codigo" id="codigo"/><br><br>
 
         <!-- Campo de Nome -->
         <label>Nome:</label>
@@ -63,23 +69,20 @@
             <?php
              
                 //Verificando se todos os campos foram preenchidos...
-                if(isset($_POST['codigo']))
+                if(isset($_POST['nome']))
                 {
                     //Se todos os campos forem preenchidos...
                     //Coletando os dados preenchidos...
-                    $codigo         = $_POST['codigo'];
                     $nome           = $_POST['nome'];
                     $telefone       = $_POST['telefone'];
                     $endereco       = $_POST['endereco'];
                     $dataNascimento = $_POST['dataNascimento'];
 
-                    //Criado e passando os dados pelo objeto Cliente...
-                    $cliente = new Cliente($codigo, $nome, $telefone, $endereco, $dataNascimento);
-
-                    //Armazenando os dados que foram inseridos nessa tela...
-                    //Pode ser utilizada para transferir dados de uma tela para outra
-                    $_SESSION["cliente"] = $cliente;//Transferindo o objeto todo
-
+                    $mensagem = $inserir->cadastrarCliente($conexao,
+                                                           $nome,
+                                                           $telefone,
+                                                           $endereco,
+                                                           $dataNascimento);
                 }//Fim da verificação de preenchimento dos campos...
             ?>
         </button>
@@ -91,11 +94,10 @@
     <?php
 
         //Verificando se os campos estão vazios...
-        if(isset($_POST['codigo']))
+        if(isset($_POST['nome']))
         {
             //Se os campos estiverem preenchidos...
-            echo "Cadastrado com sucesso!";
-
+            echo $mensagem;
         }else{
 
             //Se os campos estiverem vazios...

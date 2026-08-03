@@ -6,19 +6,28 @@
     //Conectando ao Model e Control...
     require_once('../Model/Cliente.php');//Acessando o arquivo Cliente.php que está na pasta Model...
     require_once('../Control/ClienteControl.php');//Acessando o arquivo ClienteControl.php que está na pasta Control...
+    require_once('../DAO/atualizar.php');
+    require_once('../DAO/conexao.php');
 
     //Acessando as classes da Model e Control...
     use Projeto\ti23t\Model\Cliente;//Acessando a classe "Cliente" que está na pasta Model...
     use Projeto\ti23t\Control\Control;//Acessando a classe "ClienteControl" que está na pasta Control...
+    use Projeto\ti23t\DAO\Atualizar;
+    use Projeto\ti23t\DAO\Conexao;
 
     //Iniciando a sessão para consultar os dados e realizar a atualização...
-    session_start();
+    //session_start();
 
     //Coletando o objeto...
-    $clienteRecuperado = $_SESSION["cliente"];
+    //$clienteRecuperado = $_SESSION["cliente"];
 
     //Acessar os métodos de atualização dentro da Control...
-    $controle = new Control($clienteRecuperado);
+    //$controle = new Control($clienteRecuperado);
+
+    $conexao = new Conexao();
+    $atualizar = new Atualizar();
+    $resultado = "";
+    
 
 ?>
 
@@ -39,34 +48,29 @@
 
         <!-- Campo de Código -->
         <label>Código:</label>
-        <input type="number" name="codigo" id="codigo" value="<?php echo $clienteRecuperado->codigo;?>" disabled/><br><br>
+        <input type="number" name="codigo" id="codigo"/><br><br>
 
-        <!-- Campo de Nome -->
-        <label>Nome:</label>
-        <input type="text" name="nome" id="nome" value="<?php echo $clienteRecuperado->nome;?>"/><br><br>
+        <label>Escolha o campo que você deseja atualizar:</label>
+        <select name="campo" id="campo">
+            <option value="nome">Nome</option>
+            <option value="telefone">Telefone</option>
+            <option value="endereco">Endereço</option>
+            <option value="dataNascimento">Data de Nascimento</option>
+        </select><br><br>
 
-        <!-- Campo de Telefone -->
-        <label>Telefone:</label>
-        <input type="text" name="telefone" id="telefone" value="<?php echo $clienteRecuperado->telefone;?>"/><br><br>
-
-        <!-- Campo de Endereço -->
-        <label>Endereço:</label>
-        <input type="text" name="endereco" id="endereco" value="<?php echo $clienteRecuperado->endereco;?>"/><br><br>
-
-        <!-- Campo de Data de Nascimento -->
-        <label>Data de Nascimento:</label>
-        <input type="dateTime" name="dataNascimento" id="dataNascimento" value="<?php echo $clienteRecuperado->dataNascimento;?>"/><br><br>
+        <label>Informe o novo dado:</label>
+        <input type="text" name="dado" id="dado"/><br><br>
 
         <button type="submit">Atualizar
 
             <!-- Chamando o método de atualização -->
             <?php
 
-                //Chamando os métodos de atualização de cada dado...
-                $resultadoNome           = $controle->atualizarNome($_POST['nome']);
-                $resultadoTelefone       = $controle->atualizarTelefone($_POST['telefone']);
-                $resultadoEndereco       = $controle->atualizarEndereco($_POST['endereco']);
-                $resultadoDataNascimento = $controle->atualizarDataNascimento($_POST['dataNascimento']);
+                $codigo = $_POST['codigo'];
+                $campo = $_POST['campo'];
+                $novoDado = $_POST['dado'];
+
+                $resultado = $atualizar->atualizarCliente($conexao, $codigo, $campo, $novoDado);
 
             ?>
 
@@ -76,7 +80,7 @@
     <!-- Fim do Formulário de Coleta de Dados -->
 
     <?php
-        echo $resultadoNome."<br>".$resultadoTelefone."<br>".$resultadoEndereco."<br>".$resultadoDataNascimento;
+        echo $resultado;
     ?>
 
     <!-- Botão de Voltar -->
